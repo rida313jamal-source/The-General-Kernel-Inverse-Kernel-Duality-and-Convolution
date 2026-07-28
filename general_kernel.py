@@ -854,6 +854,8 @@ def render_unified_framework_section():
     st.latex(r"""
     T\{f\}(s) := \sum_{n=0}^{\infty} a_n(-D_s)^n \frac{G(s)}{P(s)} = \int_0^{\infty} e^{-st} f(t) \int_0^t h(t-\tau) g(\tau) d\tau,
     """)
+ if __name__ == "__main__":
+    render_unified_framework_section()   
 # ============================================================
 # SECTION 9.9: The Grand Unified Framework Mapping Table
 # ============================================================
