@@ -1243,7 +1243,7 @@ def render_unified_framework_section():
         """)
 
     # ============================================================
-    # خاتمة القسم (الفقرة الختامية)
+    # 
     # ============================================================
     st.markdown(r"""
     This part presented a unified operator framework that connects different classical integral transforms through the Maclaurin series of analytic functions. By using a differential planting mechanism on a simple rational kernel, we showed how the Laplace, Fourier, Mellin, and Hankel transforms can be looked at as variations of a single operator geometry. This approach was also used to solve linear ordinary differential equations using operator algebra.
