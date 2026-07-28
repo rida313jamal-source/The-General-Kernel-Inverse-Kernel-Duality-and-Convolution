@@ -335,6 +335,9 @@ def render_unified_framework_section():
     st.latex(r"""
     \mathcal{L}\{t^n \sin(bt)\}(s) = \frac{n!}{r^{n+1}} \sin((n+1)\theta).
     """)
+    st.latex(r"""
+    \mathcal{L}\{t^n \cos(bt)\}(s) = \frac{n!}{r^{n+1}} \cos((n+1)\theta).
+    """)
     st.markdown(r"and Classical Mellin.")
     st.latex(r"""
     \int_0^\infty t^{r-1} \sin t \, dt = \Gamma(\rho) \sin\left(\frac{\pi \rho}{2}\right), \quad 0 < \Re(\rho) < 1.
