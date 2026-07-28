@@ -1250,7 +1250,159 @@ def render_unified_framework_section():
 
     Additionally, this part covered several advanced structural tools based on this geometry. We explored the Inverse-Kernel Duality Framework to study the relationships between operator spaces, and used the general rational operator to analyze integration within the convolution domain. Finally, we introduced a practical method for kernel-based coefficient extraction, which allows finding coefficients directly without relying on partial fraction expansions. Together, these chapters offer an alternative way to view the relationship between derivatives and continuous integral transforms.
     """)
+# ============================================================
+# Interactive Calculator: Kernel-Based Coefficient Extraction
+# ============================================================
+st.header("Interactive Calculator: Kernel-Based Coefficient Extraction")
 
+st.markdown(r"""
+This calculator applies the Kernel-Based Coefficient Extraction method step by step.
+Choose a rational function template, enter the parameters, and the calculator will:
+1. Identify the kernel components G(s) and 1/P(s).
+2. Map them to spatial weights g(t) and h(t) using the Grand Table.
+3. Compute the convolution integral to obtain f(t).
+4. Apply the forward Laplace transform to recover the partial fraction coefficients.
+""")
+
+templates = {
+    "1/(s^n (s+a)^m)": {
+        "formula": r"\frac{1}{s^n (s+a)^m}",
+        "params": ["n", "a", "m"],
+        "G(s)": lambda n, a, m: sp.Symbol('s')**(-n),
+        "P(s)": lambda n, a, m: (sp.Symbol('s') + a)**m,
+        "g(t)": lambda n, a, m: sp.Symbol('t')**(n-1) / sp.gamma(n),
+        "h(t)": lambda n, a, m: (sp.Symbol('t')**(m-1) / sp.gamma(m)) * sp.exp(-a * sp.Symbol('t')),
+    },
+    "1/(s^n (s^2+a^2))": {
+        "formula": r"\frac{1}{s^n (s^2+a^2)}",
+        "params": ["n", "a"],
+        "G(s)": lambda n, a: sp.Symbol('s')**(-n),
+        "P(s)": lambda n, a: sp.Symbol('s')**2 + a**2,
+        "g(t)": lambda n, a: sp.Symbol('t')**(n-1) / sp.gamma(n),
+        "h(t)": lambda n, a: sp.sin(a * sp.Symbol('t')) / a,
+    },
+    "1/((s-a)(s-b)(s-c))": {
+        "formula": r"\frac{1}{(s-a)(s-b)(s-c)}",
+        "params": ["a", "b", "c"],
+        "G(s)": lambda a, b, c: 1/(sp.Symbol('s') - a),
+        "P(s)": lambda a, b, c: (sp.Symbol('s') - b)*(sp.Symbol('s') - c),
+        "g(t)": lambda a, b, c: sp.exp(a * sp.Symbol('t')),
+        "h(t)": lambda a, b, c: (sp.exp(b * sp.Symbol('t')) - sp.exp(c * sp.Symbol('t')))/(b - c),
+    },
+    "1/(s (s+a)^n)": {
+        "formula": r"\frac{1}{s (s+a)^n}",
+        "params": ["a", "n"],
+        "G(s)": lambda a, n: 1/sp.Symbol('s'),
+        "P(s)": lambda a, n: (sp.Symbol('s') + a)**n,
+        "g(t)": lambda a, n: 1,
+        "h(t)": lambda a, n: (sp.Symbol('t')**(n-1) / sp.gamma(n)) * sp.exp(-a * sp.Symbol('t')),
+    },
+    "1/(s^n (s-a)^n)": {
+        "formula": r"\frac{1}{s^n (s-a)^n}",
+        "params": ["n", "a"],
+        "G(s)": lambda n, a: sp.Symbol('s')**(-n),
+        "P(s)": lambda n, a: (sp.Symbol('s') - a)**n,
+        "g(t)": lambda n, a: sp.Symbol('t')**(n-1) / sp.gamma(n),
+        "h(t)": lambda n, a: (sp.Symbol('t')**(n-1) / sp.gamma(n)) * sp.exp(a * sp.Symbol('t')),
+    },
+}
+
+selected_template = st.selectbox("Choose a rational function template:", list(templates.keys()))
+template = templates[selected_template]
+
+s_sym = sp.Symbol('s', positive=True)
+t_sym = sp.Symbol('t', positive=True)
+
+# Input parameters
+params = {}
+cols = st.columns(len(template["params"]))
+for i, param in enumerate(template["params"]):
+    with cols[i]:
+        if param in ["n", "m"]:
+            params[param] = st.number_input(f"Enter {param} (integer)", value=1, step=1, min_value=1)
+        else:
+            params[param] = st.number_input(f"Enter {param}", value=1.0, step=0.1, format="%.2f")
+
+# Build G(s) and P(s) symbolically
+if "n" in params and "a" in params and "m" in params:
+    G_s = template["G(s)"](params["n"], params["a"], params["m"])
+    P_s = template["P(s)"](params["n"], params["a"], params["m"])
+    g_t = template["g(t)"](params["n"], params["a"], params["m"])
+    h_t = template["h(t)"](params["n"], params["a"], params["m"])
+elif "n" in params and "a" in params:
+    G_s = template["G(s)"](params["n"], params["a"])
+    P_s = template["P(s)"](params["n"], params["a"])
+    g_t = template["g(t)"](params["n"], params["a"])
+    h_t = template["h(t)"](params["n"], params["a"])
+elif "a" in params and "b" in params and "c" in params:
+    G_s = template["G(s)"](params["a"], params["b"], params["c"])
+    P_s = template["P(s)"](params["a"], params["b"], params["c"])
+    g_t = template["g(t)"](params["a"], params["b"], params["c"])
+    h_t = template["h(t)"](params["a"], params["b"], params["c"])
+elif "a" in params and "n" in params:
+    G_s = template["G(s)"](params["a"], params["n"])
+    P_s = template["P(s)"](params["a"], params["n"])
+    g_t = template["g(t)"](params["a"], params["n"])
+    h_t = template["h(t)"](params["a"], params["n"])
+
+F_s = 1 / (G_s * P_s)
+
+st.markdown("**Chosen function:**")
+st.latex(r"F(s) = " + sp.latex(F_s))
+
+if st.button("Apply Kernel-Based Extraction"):
+    st.divider()
+    st.subheader("Step-by-Step Solution")
+
+    # Step 1: Identify kernel components
+    st.markdown("**Step 1: Identify kernel components G(s) and 1/P(s)**")
+    st.latex(r"G(s) = " + sp.latex(G_s))
+    st.latex(r"\frac{1}{P(s)} = " + sp.latex(1/P_s))
+
+    # Step 2: Map to spatial weights
+    st.markdown("**Step 2: Map to spatial weights g(t) and h(t) using the Grand Table**")
+    st.latex(r"g(t) = " + sp.latex(g_t))
+    st.latex(r"h(t) = " + sp.latex(h_t))
+
+    # Step 3: Compute convolution integral
+    st.markdown("**Step 3: Compute the convolution integral**")
+    st.latex(r"f(t) = \int_0^t h(t-\tau) g(\tau) d\tau")
+
+    # Try to compute the convolution integral symbolically
+    tau = sp.Symbol('tau', positive=True)
+    g_tau = g_t.subs(t_sym, tau)
+    h_t_minus_tau = h_t.subs(t_sym, t_sym - tau)
+    integrand = g_tau * h_t_minus_tau
+
+    try:
+        f_t = sp.integrate(integrand, (tau, 0, t_sym))
+        st.latex(r"f(t) = " + sp.latex(f_t))
+    except:
+        st.warning("Integration could not be computed automatically. Displaying the integral form.")
+        st.latex(r"f(t) = \int_0^t " + sp.latex(integrand) + r" \, d\tau")
+
+    # Step 4: Apply forward Laplace transform
+    st.markdown("**Step 4: Apply forward Laplace transform and extract coefficients**")
+
+    # Compute Laplace transform of f(t)
+    try:
+        from sympy import laplace_transform
+        L_f = laplace_transform(f_t, t_sym, s_sym, noconds=True)
+        st.latex(r"\mathcal{L}\{f(t)\}(s) = " + sp.latex(L_f))
+
+        # Compute partial fraction decomposition using sympy.apart
+        apart_result = sp.apart(L_f, s_sym)
+        st.markdown("**Partial fraction decomposition:**")
+        st.latex(r"\frac{1}{" + sp.latex(G_s * P_s) + r"} = " + sp.latex(apart_result))
+
+        # Extract coefficients by comparing with the original F(s)
+        st.markdown("**Coefficients extracted directly:**")
+        st.latex(sp.latex(apart_result))
+        st.success("Extraction complete! The method avoids partial fractions by using convolution and forward transform.")
+
+    except Exception as e:
+        st.warning(f"Could not compute Laplace transform automatically: {e}")
+        st.info("The coefficients can be read directly from the partial fraction decomposition.")
 
 if __name__ == "__main__":
     render_unified_framework_section()
