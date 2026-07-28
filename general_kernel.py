@@ -334,10 +334,10 @@ def render_unified_framework_section():
     """)
     st.markdown(r"and Classical Mellin.")
     st.latex(r"""
-    \int_0^\infty t^{r-1} \sin t \, dt = \Gamma(\rho) \sin\left(\frac{\pi \rho}{2}\right), \quad 0 < \Re(\rho) < 1.
+    \int_0^\infty t^{\rho-1} \sin t \, dt = \Gamma(\rho) \sin\left(\frac{\pi \rho}{2}\right), \quad 0 < \Re(\rho) < 1.
     """)
     st.latex(r"""
-    \int_0^\infty t^{r-1} \cos t \, dt = \Gamma(\rho) \cos\left(\frac{\pi \rho}{2}\right), \quad 0 < \Re(\rho) < 1.
+    \int_0^\infty t^{\rho-1} \cos t \, dt = \Gamma(\rho) \cos\left(\frac{\pi \rho}{2}\right), \quad 0 < \Re(\rho) < 1.
     """)
     st.markdown(r"where")
     st.latex(r"""
