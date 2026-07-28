@@ -1252,7 +1252,7 @@ def render_unified_framework_section():
     """)
 
 
-def kernel_convolution_calculator(numerator, denominator_factors):
+
     """
     Inverse Laplace and Partial Fraction Calculator via Dual-Kernel Decomposition 
     and Spatial Convolution (t-domain), based on Monograph pages 14-21.
