@@ -854,7 +854,409 @@ def render_unified_framework_section():
     st.latex(r"""
     T\{f\}(s) := \sum_{n=0}^{\infty} a_n(-D_s)^n \frac{G(s)}{P(s)} = \int_0^{\infty} e^{-st} f(t) \int_0^t h(t-\tau) g(\tau) d\tau,
     """)
+# ============================================================
+# SECTION 9.9: The Grand Unified Framework Mapping Table
+# ============================================================
+st.header("9.9 The Grand Unified Framework Mapping Table")
 
+st.markdown(r"""
+To provide a definitive and comprehensive synthesis of the operator‑based transform framework, the following mapping table summarizes the structural transformations induced by all evaluated operator configurations in the $s$-domain alongside their precise spatial representations in the $x$-domain, organized systematically from elementary seeds to the ultimate generalized polynomial architectures.
+""")
+
+st.markdown("**I. Foundational Operations on the Generated Kernel**")
+
+st.markdown("""
+| $s$-Domain Operator | $t$-Domain Spatial Representation |
+|---|---|
+| $T^{-1}\\{G(s)\\}$ | $g(t)$ |
+| $T^{-1}\\left\\{ \\dfrac{G(s)}{s} \\right\\}$ | $\\displaystyle\\int_0^t g(u)\\,du$ |
+| $T^{-1}\\left\\{ \\dfrac{G(s)}{s^n} \\right\\}$ | $\\displaystyle\\frac{1}{(n-1)!}\\int_0^t (t-\\tau)^{n-1} g(\\tau)\\,d\\tau$ |
+| $T^{-1}\\{G(s-a)\\}$ | $e^{at} g(t)$ |
+""")
+
+st.markdown("**II. Neutral and Distributional States (When $G(s) = 1 \\implies g(t) = \\delta(t)$)**")
+
+st.markdown("""
+| $s$-Domain Operator | $t$-Domain Spatial Representation |
+|---|---|
+| $T^{-1}\\{1\\}$ | $\\delta(t)$ |
+| $T^{-1}\\left\\{ \\dfrac{1}{s-a} \\right\\}$ | $e^{at}$ |
+| $T^{-1}\\left\\{ \\dfrac{1}{(s-a)^n} \\right\\}$ | $\\displaystyle\\frac{t^{n-1}}{(n-1)!} e^{at}$ |
+| $T^{-1}\\left\\{ \\dfrac{1}{s(s-a)^n} \\right\\}$ | $\\displaystyle\\frac{1}{(n-1)!}\\int_0^t u^{n-1} e^{au}\\,du$ |
+""")
+
+st.markdown("**III. Trigonometric and Hyperbolic Modulated Waves**")
+
+st.markdown("""
+| $s$-Domain Operator | $t$-Domain Spatial Representation |
+|---|---|
+| $T^{-1}\\left\\{ \\dfrac{G(s)}{s^2+a^2} \\right\\}$ | $\\displaystyle\\frac{1}{a}\\int_0^t \\sin\\bigl(a(t-\\tau)\\bigr) g(\\tau)\\,d\\tau$ |
+| $T^{-1}\\left\\{ \\dfrac{G(s)}{s^2-a^2} \\right\\}$ | $\\displaystyle\\frac{1}{a}\\int_0^t \\sinh\\bigl(a(t-\\tau)\\bigr) g(\\tau)\\,d\\tau$ |
+| $T^{-1}\\left\\{ \\dfrac{sG(s)}{s^2+a^2} \\right\\}$ | $\\displaystyle\\int_0^t \\cos\\bigl(a(t-\\tau)\\bigr) g(\\tau)\\,d\\tau$ |
+| $T^{-1}\\left\\{ \\dfrac{sG(s)}{s^2-a^2} \\right\\}$ | $\\displaystyle\\int_0^t \\cosh\\bigl(a(t-\\tau)\\bigr) g(\\tau)\\,d\\tau$ |
+""")
+
+st.markdown("**IV. Composite System Regularizations**")
+
+st.markdown("""
+| $s$-Domain Operator | $t$-Domain Spatial Representation |
+|---|---|
+| $T^{-1}\\left\\{ \\dfrac{G(s)}{s^n(s+a)} \\right\\}$ | $\\displaystyle\\frac{1}{(n-1)!}\\int_0^t (t-\\tau)^{n-1} e^{-a(t-\\tau)} g(\\tau)\\,d\\tau$ |
+| $T^{-1}\\left\\{ \\dfrac{G(s)}{s^n(s^2+a^2)} \\right\\}$ | $\\displaystyle\\frac{1}{a(n-1)!}\\int_0^t (t-\\tau)^{n-1} \\sin\\bigl(a(t-\\tau)\\bigr) g(\\tau)\\,d\\tau$ |
+| $T^{-1}\\left\\{ \\dfrac{G(s)}{s(s-a)^n} \\right\\}$ | $\\displaystyle\\frac{1}{(n-1)!}\\int_0^t \\left(\\int_0^t u^{n-1} e^{au}\\,du\\right) g(\\tau)\\,d\\tau$ |
+""")
+
+st.markdown("**V. The Ultimate Generalized Polynomial Architectures (The Grand Axioms)**")
+
+st.markdown("""
+| $s$-Domain Operator | $t$-Domain Spatial Representation |
+|---|---|
+| $T^{-1}\\left\\{ \\dfrac{G(s)}{P(s)} \\right\\}$ | $\\displaystyle\\int_0^t h(t-\\tau) g(\\tau)\\,d\\tau$ |
+| $T^{-1}\\left\\{ \\dfrac{G(s)}{s^n P(s)} \\right\\}$ | where $h(t) = T^{-1}\\left\\{ \\dfrac{1}{P(s)} \\right\\}$ |
+| $T^{-1}\\left\\{ \\dfrac{G(s)}{s^\\alpha} \\right\\}$ | $\\displaystyle\\int_0^t K_{n,P}(t-\\tau) g(\\tau)\\,d\\tau$ |
+""")
+
+# ============================================================
+# SECTION 9.10: Kernel-Based Coefficient Extraction Without Partial Fractions
+# ============================================================
+st.header("9.10 Kernel-Based Coefficient Extraction Without Partial Fractions")
+
+st.markdown(r"""
+In classical inverse Laplace problems, rational functions are usually simplified using partial fraction decomposition (PFD). This algebraic approach requires finding unknown constants through tedious simultaneous equations and polynomial factorization.
+
+The General Kernel framework herein provides an entirely alternative viewpoint, reversing the direction of computation: instead of decomposing the transform expression first, the required decomposition components emerge naturally from the structural properties of the generated spatial kernel.
+
+**The Classical vs. Kernel-Based Framework**
+
+Consider the prototype rational transform expression to be analyzed:
+""")
+st.latex(r"""
+F(s) = \frac{1}{s(s + 1)^2}
+""")
+
+st.markdown(r"""
+**The Classical Decomposition Bottleneck**
+
+The standard algebraic method assumes a priori that the fraction can be expanded into isolated polynomial degrees with unknown residues:
+""")
+st.latex(r"""
+\frac{1}{s(s + 1)^2} = \frac{A}{s} + \frac{B}{s + 1} + \frac{C}{(s + 1)^2}
+""")
+st.markdown(r"""
+The coefficients $A, B,$ and $C$ must then be determined through a system of linear algebraic operations.
+
+**The Kernel-Based Alternative**
+
+Instead of decomposing the transform domain fraction algebraically, we re-frame the expression as a combination of distinct operator factors acting on a seed kernel:
+""")
+st.latex(r"""
+F(s) = \frac{1}{s} \cdot \frac{1}{(s + 1)^2}
+""")
+st.markdown(r"""
+The baseline factor $\frac{1}{s}$ corresponds directly to the spatial weight function $g(t) = 1$, while the shifting operator $P(s) = s + 1$ generates the continuous exponential kernel $K_P(t) = e^{-t}$. The repeated rank $n = 2$ in the denominator implies a repeated application of the kernel mechanism.
+
+By invoking the Proposed General Kernel Formula, the inverse Laplace transform is written directly as a continuous integral weighted by these interacting kernels:
+""")
+st.latex(r"""
+f(x) = \mathcal{L}^{-1} \left\{ \frac{1}{s(s + 1)^2} \right\} = \int_0^x (t - \tau)e^{-(t-\tau)}(1) \, d\tau
+""")
+st.markdown(r"""
+Evaluating this spatial integral using standard integration by parts yields the closed-form time-domain response:
+""")
+st.latex(r"""
+f(t) = 1 - (t + 1)e^{-t}
+""")
+
+st.markdown(r"""
+**Recovering Transform Domain Components and Coefficients**
+
+The step of this extraction process involves passing the freshly evaluated spatial function $f(t)$ back into the forward Laplace transform domain:
+""")
+st.latex(r"""
+\mathcal{L}\{f(t)\}(s) = \mathcal{L}\{1 - (t+1)e^{-t}\}(s)
+""")
+st.markdown(r"""
+By invoking the linear distribution of the forward Laplace operator, we separate the spatial components:
+""")
+st.latex(r"""
+\mathcal{L}\{1 - (t+1)e^{-t}\} = \mathcal{L}\{1\} - \mathcal{L}\{e^{-t}\} - \mathcal{L}\{te^{-t}\}
+""")
+st.markdown(r"""
+Substituting the standard transform pairs ($\mathcal{L}\{1\} = \frac{1}{s}$, $\mathcal{L}\{e^{-t}\} = \frac{1}{s+1}$, and $\mathcal{L}\{te^{-t}\} = \frac{1}{(s+1)^2}$) into the identity yields an automatic linear expansion:
+""")
+st.latex(r"""
+\frac{1}{s(s+1)^2} = \frac{1}{s} - \frac{1}{s+1} - \frac{1}{(s+1)^2}
+""")
+st.markdown(r"""
+By direct visual matching against the classical template $\frac{A}{s} + \frac{B}{s+1} + \frac{C}{(s+1)^2}$, the coefficients emerge instantly without algebraic guessing:
+""")
+st.latex(r"""
+A = 1, \quad B = -1, \quad C = -1
+""")
+
+# ----- Example 9.10 (مع expander) -----
+with st.expander("Example 9.10"):
+    st.markdown(r"""
+    Instead of generating simultaneous equations for independent residues, we treat the expression as a dual-kernel rational interaction:
+    """)
+    st.latex(r"""
+    F(s) = \frac{G(s)}{P(s)} = \frac{1}{s-2} \cdot \frac{1}{s-3}
+    """)
+    st.markdown(r"""
+    From Section II of the Grand Table, we identify the independent spatial inverse kernel weights: $g(t) = e^{2t}$ and $h(t) = e^{3t}$. Invoking the general Dual-Kernel Convolution axiom, the spatial mapping is established directly via continuous integration:
+    """)
+    st.latex(r"""
+    f(t) = \int_0^t e^{3(t-\tau)}e^{2\tau} \, d\tau = e^{3t} \int_0^t e^{-\tau} \, d\tau = e^{3t}(1 - e^{-t}) = e^{3t} - e^{2t}
+    """)
+    st.markdown(r"""
+    We now project this spatial response back into the forward transform domain using the linear distribution properties:
+    """)
+    st.latex(r"""
+    \mathcal{L}\{f(t)\}(s) = \mathcal{L}\{e^{3t} - e^{2t}\}(s) = \mathcal{L}\{e^{3t}\} - \mathcal{L}\{e^{2t}\} = \frac{1}{s-3} - \frac{1}{s-2}
+    """)
+    st.markdown(r"""
+    Equating this result to the classical decomposition template $\frac{A}{s-2} + \frac{B}{s-3}$, the operational coefficients stand exposed directly:
+    """)
+    st.latex(r"""
+    A = -1, \quad B = 1 \implies \frac{1}{(s-2)(s-3)} = \frac{1}{s-3} - \frac{1}{s-2}
+    """)
+
+# ----- Example 9.11 (مع expander) -----
+with st.expander("Example 9.11 (Decomposition of Mixed Higher-Order Quadratic Kernels)"):
+    st.markdown(r"""
+    Extract the structural decomposition coefficients for the advanced asymmetric fraction:
+    """)
+    st.latex(r"""
+    H(s) = \frac{1}{s^2(s^2+1)}
+    """)
+
+# ----- Example 9.12 (مع expander) -----
+with st.expander("Example 9.12"):
+    st.markdown(r"""
+    We evaluate the operational mapping by framing the expression under Section IV of the table as a composite Trigonometric-Monomial structure where $G(s) = 1 \implies g(t) = 1$, $n = 2$, and $a = 1$:
+    """)
+    st.latex(r"""
+    h(t) = \mathcal{T}^{-1} \left\{ \frac{1}{s^2(s^2+1)} \right\} = \frac{1}{1(2-1)!} \int_0^t (t-\tau)^{2-1} \sin(1(t-\tau))(1) \, d\tau
+    """)
+    st.markdown(r"""
+    The expression simplifies to a linear spatial convolutional layer:
+    """)
+    st.latex(r"""
+    h(t) = \int_0^t (t-\tau)\sin(t-\tau) \, d\tau
+    """)
+    st.markdown(r"""
+    Using a linear change of variables ($u = t - \tau \implies du = -d\tau$), the spatial boundaries invert to yield:
+    """)
+    st.latex(r"""
+    h(t) = \int_0^t u \sin(u) \, du = [-u \cos(u) + \sin(u)]_0^t = \sin(t) - t \cos(t)
+    """)
+    st.markdown(r"""
+    We pass this spatial configuration through the forward transform domain to automatically partition its algebraic degrees:
+    """)
+    st.latex(r"""
+    \mathcal{L}\{h(t)\}(s) = \mathcal{L}\{\sin(t)\} - \mathcal{L}\{t \cos(t)\} = \frac{1}{s^2 + 1} - \frac{s^2 - 1}{(s^2 + 1)^2} = \frac{1}{s^2} - \frac{1}{s^2 + 1}
+    """)
+    st.markdown(r"""
+    By direct matching, the system decomposes into its elemental components instantly, bypassing all matrix vector solves:
+    """)
+    st.latex(r"""
+    \frac{1}{s^2(s^2 + 1)} = \frac{1}{s^2} - \frac{1}{s^2 + 1}
+    """)
+
+# ----- Example 9.13: Third-Order Cluster Pole (مع expander) -----
+with st.expander("Detailed Application: Third-Order Cluster Pole"):
+    st.markdown(r"""
+    We evaluate the inverse transform of the following third-order system rational fraction:
+    """)
+    st.latex(r"""
+    F(s) = \frac{1}{s^2(s - 1)(s^2 + 1)}
+    """)
+    st.markdown(r"""
+    According to the dual-kernel framework, we frame the expression as a multiplication of a baseline generated kernel and a shifting system operator:
+    """)
+    st.latex(r"""
+    F(s) = G(s) \cdot \frac{1}{P(s)} = \left( \frac{1}{s^2} \right) \cdot \left( \frac{1}{(s - 1)(s^2 + 1)} \right)
+    """)
+    st.markdown("**1. Structural Kernel Identification**")
+    st.markdown(r"""
+    By mapping each component independently back into the spatial domain, we extract the structural inverse weights:
+
+    - **Base Kernel Weight:** $g(t) = \mathcal{L}^{-1} \left\{ \frac{1}{s^2} \right\} = t$
+
+    - **System Response Operator:** $h(t) = \mathcal{L}^{-1} \left\{ \frac{1}{(s - 1)(s^2 + 1)} \right\} = \frac{1}{2} \left( e^t - \sin t - \cos t \right)$
+    """)
+    st.markdown("**2. Detailed Convolutional Integration**")
+    st.markdown(r"""
+    Invoking the Generalized Convolution Kernel Identity, the exact spatial solution $f(t)$ is constructed directly through a single spatial convolution integral:
+    """)
+    st.latex(r"""
+    f(t) = \int_0^t h(t - \tau) g(\tau) \, d\tau
+    """)
+    st.markdown(r"""
+    Substituting the identified spatial structures yields:
+    """)
+    st.latex(r"""
+    f(t) = \int_0^t \frac{1}{2} \left( e^{t - \tau} - \sin(t - \tau) - \cos(t - \tau) \right) \cdot \tau \, d\tau
+    """)
+    st.latex(r"""
+    f(t) = \frac{1}{2} I_1 - \frac{1}{2} I_2 - \frac{1}{2} I_3
+    """)
+    st.markdown(r"""
+    **Evaluation of $I_1$:**
+    """)
+    st.latex(r"""
+    I_1 = \int_0^t \tau e^{t-\tau} \, d\tau = [-\tau e^{t-\tau}]_0^t - \int_0^t (-e^{t-\tau}) \, d\tau
+    """)
+    st.latex(r"""
+    I_1 = -t - (1 - e^t) = e^t - t - 1
+    """)
+    st.markdown(r"""
+    **Evaluation of $I_2$:**
+    """)
+    st.latex(r"""
+    I_2 = \int_0^t \tau \sin(t-\tau) \, d\tau = [\tau \cos(t-\tau)]_0^t - \int_0^t \cos(t-\tau) \, d\tau
+    """)
+    st.latex(r"""
+    I_2 = t - \sin t
+    """)
+    st.markdown(r"""
+    **Evaluation of $I_3$:**
+    """)
+    st.latex(r"""
+    I_3 = \int_0^t \tau \cos(t-\tau) \, d\tau = [-\tau \sin(t-\tau)]_0^t - \int_0^t (-\sin(t-\tau)) \, d\tau
+    """)
+    st.latex(r"""
+    I_3 = \cos t - 1
+    """)
+    st.markdown(r"""
+    **Combining:**
+    """)
+    st.latex(r"""
+    f(t) = \frac{1}{2}(e^t - t - 1) - \frac{1}{2}(t - \sin t) - \frac{1}{2}(\cos t - 1)
+    """)
+    st.latex(r"""
+    f(t) = \frac{1}{2}e^t - t + \frac{1}{2}\sin t - \frac{1}{2}\cos t
+    """)
+    st.markdown("**3. Forward Transform:**")
+    st.latex(r"""
+    \mathcal{L}\{f(t)\} = \frac{1}{2}\mathcal{L}\{e^t\} - \mathcal{L}\{t\} + \frac{1}{2}\mathcal{L}\{\sin t\} - \frac{1}{2}\mathcal{L}\{\cos t\}
+    """)
+    st.latex(r"""
+    = \frac{1}{2(s-1)} - \frac{1}{s^2} + \frac{1}{2(s^2+1)} - \frac{s}{2(s^2+1)}
+    """)
+    st.markdown("**4. Final Decomposition:**")
+    st.latex(r"""
+    \frac{1}{s^2(s-1)(s^2+1)} = \frac{1}{2(s-1)} - \frac{1}{s^2} + \frac{1}{2(s^2+1)} - \frac{s}{2(s^2+1)}
+    """)
+    st.markdown("**5. Coefficients:**")
+    st.latex(r"""
+    A = 0, \quad B = -1, \quad C = \frac{1}{2}, \quad D = -\frac{1}{2}, \quad E = \frac{1}{2}
+    """)
+
+# ----- Example 9.14: Distinct Linear Poles (مع expander) -----
+with st.expander("Detailed Application: Distinct Linear Poles"):
+    st.markdown(r"""
+    We evaluate the inverse transform of the following proper rational system fraction with three distinct linear poles in the denominator:
+    """)
+    st.latex(r"""
+    F(s) = \frac{1}{(s-1)(s-3)(s-4)}
+    """)
+    st.markdown(r"""
+    Following the architectural routing of the General Kernel framework, we re-frame the expression as a dual-kernel rational interaction by isolating a baseline seed transform:
+    """)
+    st.latex(r"""
+    F(s) = G(s) \cdot \frac{1}{P(s)} = \left( \frac{1}{s-1} \right) \cdot \left( \frac{1}{(s-3)(s-4)} \right)
+    """)
+    st.markdown("**1. Structural Kernel Identification**")
+    st.markdown(r"""
+    By mapping each analytical component independently back into the spatial domain:
+    """)
+    st.latex(r"""
+    g(t) = e^{t}, \quad h(t) = e^{4t} - e^{3t}
+    """)
+    st.markdown("**2. Detailed Convolutional Integration**")
+    st.markdown(r"""
+    Invoking Theorem 3.5 (The Generalized Convolution Kernel Identity), the exact spatial time-domain response $f(t)$ is constructed directly through a single continuous convolution integral:
+    """)
+    st.latex(r"""
+    f(t) = \int_0^t h(t-\tau) g(\tau) \, d\tau
+    """)
+    st.markdown(r"""
+    Substituting the identified primary weights $h(t - \tau) = e^{4(t - \tau)} - e^{3(t - \tau)}$ and $g(\tau) = e^{\tau}$ yields:
+    """)
+    st.latex(r"""
+    f(t) = \int_0^t \left( e^{4(t - \tau)} - e^{3(t - \tau)} \right) e^{\tau} \, d\tau
+    """)
+    st.latex(r"""
+    = e^{4t} \int_0^t e^{-3\tau} d\tau - e^{3t} \int_0^t e^{-2\tau} d\tau
+    """)
+    st.latex(r"""
+    = \frac{1}{6} e^{t} - \frac{1}{2} e^{3t} + \frac{1}{3} e^{4t}
+    """)
+    st.markdown("**3. Forward Transform & Coefficient Extraction:**")
+    st.latex(r"""
+    \mathcal{L}\{f(t)\} = \frac{1}{6(s-1)} - \frac{1}{2(s-3)} + \frac{1}{3(s-4)}
+    """)
+    st.markdown(r"""
+    By direct matching:
+    """)
+    st.latex(r"""
+    A = \frac{1}{6}, \quad B = -\frac{1}{2}, \quad C = \frac{1}{3}
+    """)
+
+# ----- Example 7: Fifth-Order Pole (مع expander) -----
+with st.expander("Example 7: Fifth-Order Pole"):
+    st.markdown(r"""
+    **Problem:**
+    """)
+    st.latex(r"""
+    F(s) = \frac{1}{s(s + 1)^5}
+    """)
+    st.markdown(r"""
+    **1. Kernel Identification:**
+    """)
+    st.latex(r"""
+    g(t) = \mathcal{L}^{-1} \left\{ \frac{1}{s} \right\} = 1
+    """)
+    st.latex(r"""
+    h(t) = \mathcal{L}^{-1} \left\{ \frac{1}{(s+1)^5} \right\} = \frac{t^4}{4!} e^{-t} = \frac{t^4}{24} e^{-t}
+    """)
+    st.markdown(r"""
+    **2. Convolution Integration:**
+    """)
+    st.latex(r"""
+    f(t) = \int_0^t h(\tau)g(t-\tau)d\tau = \frac{1}{24} \int_0^t \tau^4 e^{-\tau}d\tau
+    """)
+    st.latex(r"""
+    = 1 - e^{-t} \left( 1 + t + \frac{t^2}{2} + \frac{t^3}{6} + \frac{t^4}{24} \right)
+    """)
+    st.markdown(r"""
+    **3. Forward Transform:**
+    """)
+    st.latex(r"""
+    \mathcal{L}\{f(t)\} = \frac{1}{s} - \frac{1}{s+1} - \frac{1}{(s+1)^2} - \frac{1}{(s+1)^3} - \frac{1}{(s+1)^4} - \frac{1}{(s+1)^5}
+    """)
+    st.markdown(r"""
+    **4. Final Decomposition:**
+    """)
+    st.latex(r"""
+    \frac{1}{s(s+1)^5} = \frac{1}{s} - \frac{1}{s+1} - \frac{1}{(s+1)^2} - \frac{1}{(s+1)^3} - \frac{1}{(s+1)^4} - \frac{1}{(s+1)^5}
+    """)
+    st.markdown(r"""
+    **5. Coefficients:**
+    """)
+    st.latex(r"""
+    A = 1, \quad B = -1, \quad C = -1, \quad D = -1, \quad E = -1, \quad F = -1
+    """)
+
+# ============================================================
+# 
+# ============================================================
+st.markdown(r"""
+This part presented a unified operator framework that connects different classical integral transforms through the Maclaurin series of analytic functions. By using a differential planting mechanism on a simple rational kernel, we showed how the Laplace, Fourier, Mellin, and Hankel transforms can be looked at as variations of a single operator geometry. This approach was also used to solve linear ordinary differential equations using operator algebra.
+
+Additionally, this part covered several advanced structural tools based on this geometry. We explored the Inverse-Kernel Duality Framework to study the relationships between operator spaces, and used the general rational operator to analyze integration within the convolution domain. Finally, we introduced a practical method for kernel-based coefficient extraction, which allows finding coefficients directly without relying on partial fraction expansions. Together, these chapters offer an alternative way to view the relationship between derivatives and continuous integral transforms.
+""")
     
 
     
