@@ -1250,7 +1250,7 @@ def render_unified_framework_section():
 
     Additionally, this part covered several advanced structural tools based on this geometry. We explored the Inverse-Kernel Duality Framework to study the relationships between operator spaces, and used the general rational operator to analyze integration within the convolution domain. Finally, we introduced a practical method for kernel-based coefficient extraction, which allows finding coefficients directly without relying on partial fraction expansions. Together, these chapters offer an alternative way to view the relationship between derivatives and continuous integral transforms.
     """)
-import sympy as sp
+
 
 def kernel_convolution_calculator(numerator, denominator_factors):
     """
