@@ -1253,73 +1253,7 @@ def render_unified_framework_section():
 
 
 
-    """
-    Inverse Laplace and Partial Fraction Calculator via Dual-Kernel Decomposition 
-    and Spatial Convolution (t-domain), based on Monograph pages 14-21.
-    """
-    # Define symbolic variables with safe real boundaries
-    s, t, tau = sp.symbols('s t tau', positive=True)
     
-    print("=" * 70)
-    denom_str = " * ".join([f"({str(f)})" for f in denominator_factors])
-    print(f"Input Rational System Fraction: F(s) = {numerator} / [{denom_str}]")
-    print("=" * 70)
-    
-    # 1. Dual-Kernel Representation Step
-    # Extract the foundational baseline seed factor as G(s)
-    G_s = numerator / denominator_factors[0]
-    
-    # Consolidate the remaining target polynomial factors as P(s)
-    P_s = 1
-    for factor in denominator_factors[1:]:
-        P_s *= factor
-        
-    print("1. Dual-Kernel Representation Step:")
-    print(f"   Primary Transform Architecture G(s) = {G_s}")
-    print(f"   Reciprocal System Operator 1/P(s) = 1 / ({P_s})")
-    
-    # 2. Kernel Identification Step (Inversion to continuous spatial t-domain)
-    g_t = sp.inverse_laplace_transform(G_s, s, t)
-    h_t = sp.inverse_laplace_transform(1/P_s, s, t)
-    
-    print("\n2. Kernel Identification Step (Time Domain):")
-    print(f"   g(t) = L^-1{{G(s)}} = {g_t}")
-    print(f"   h(t) = L^-1{{1/P(s)}} = {h_t}")
-    
-    # 3. Direct Convolutional Integration Step
-    # Apply continuous structural displacement: h(t) -> h(t - tau) and g(t) -> g(tau)
-    h_shifted = h_t.subs(t, t - tau)
-    g_scaled = g_t.subs(t, tau)
-    
-    convolution_integrand = h_shifted * g_scaled
-    print("\n3. Direct Convolutional Integration Step:")
-    print(f"   Operational Integral Setup: Integral_0^t [ ({h_shifted}) * ({g_scaled}) ] d_tau")
-    
-    # Execute continuous spatial convolution integration over the boundary limit [0, t]
-    f_t = sp.integrate(convolution_integrand, (tau, 0, t))
-    f_t_simplified = sp.simplify(f_t)
-    print(f"   Evaluated Time-Domain Response: f(t) = {f_t_simplified}")
-    
-    # 4. Forward Transformation Loop Step (Automatic residue coefficient extraction)
-    F_s_expanded = sp.laplace_transform(f_t_simplified, t, s, noconds=True)
-    print("\n4. Forward Transformation Loop Step:")
-    print(f"   Forward Mapping Projection L{{f(t)}} = {sp.simplify(F_s_expanded)}")
-    print(f"   Automatic Partial Fraction Expansion (No Matrix Solves): F(s) = {F_s_expanded}")
-    print("=" * 70 + "\n")
-
-
-# ====== OPERATIONAL TESTS & VERIFICATIONS FROM THE MONOGRAPH ======
-s = sp.Symbol('s')
-
-print("Executing Prototype Test 1 (Monograph Page 14 - Section 5.1):")
-# Monograph Equation (39): F(s) = 1 / (s * (s + 1)^2)
-# Parsed Denominator Array Configuration: [s, (s + 1)^2]
-kernel_convolution_calculator(1, [s, (s + 1)**2])
-
-print("Executing Prototype Test 2 (Monograph Page 19 - Example 9.5):")
-# Monograph Equation (63): F(s) = 1 / ((s - 2) * (s - 3))
-# Parsed Denominator Array Configuration: [(s - 2), (s - 3)]
-kernel_convolution_calculator(1, [(s - 2), (s - 3)])
 
 
 if __name__ == "__main__":
