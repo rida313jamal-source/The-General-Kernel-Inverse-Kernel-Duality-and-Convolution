@@ -854,8 +854,7 @@ def render_unified_framework_section():
     st.latex(r"""
     T\{f\}(s) := \sum_{n=0}^{\infty} a_n(-D_s)^n \frac{G(s)}{P(s)} = \int_0^{\infty} e^{-st} f(t) \int_0^t h(t-\tau) g(\tau) d\tau,
     """)
- if __name__ == "__main__":
-    render_unified_framework_section()  
+ 
 # ============================================================
 # SECTION 9.9: The Grand Unified Framework Mapping Table
 # ============================================================
@@ -1259,7 +1258,8 @@ This part presented a unified operator framework that connects different classic
 
 Additionally, this part covered several advanced structural tools based on this geometry. We explored the Inverse-Kernel Duality Framework to study the relationships between operator spaces, and used the general rational operator to analyze integration within the convolution domain. Finally, we introduced a practical method for kernel-based coefficient extraction, which allows finding coefficients directly without relying on partial fraction expansions. Together, these chapters offer an alternative way to view the relationship between derivatives and continuous integral transforms.
 """)
-    
+if __name__ == "__main__":
+    render_unified_framework_section()      
 
     
 
