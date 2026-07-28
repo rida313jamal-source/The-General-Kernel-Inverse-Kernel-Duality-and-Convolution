@@ -236,13 +236,13 @@ def render_unified_framework_section():
     Let $f(t) = \sum_{n=0}^\infty a_n t^n$ be an analytic function in a neighborhood of $t = 0$ with Maclaurin coefficients $a_n$. If the transform operator $\mathcal{T}$ is defined purely through the differential planting series:
     """)
     st.latex(r"""
-    \mathcal{T}\{f\}(s) := \sum_{n=0}^\infty a_n (-D_s)^n G(s) \tag{192}
+    \mathcal{T}\{f\}(s) := \sum_{n=0}^\infty a_n (-D_s)^n G(s) 
     """)
     st.markdown(r"""
     where $D_s = \frac{d}{ds}$, then $\mathcal{T}\{f\}(s)$ admits the equivalent weighted integral representation:
     """)
     st.latex(r"""
-    \mathcal{T}\{f\}(s) = \int_0^\infty e^{-st}f(t)g(t) \, dt \tag{193}
+    \mathcal{T}\{f\}(s) = \int_0^\infty e^{-st}f(t)g(t) \, dt 
     """)
     st.markdown(r"""
     where $g(x) = \mathcal{L}^{-1}\{G(s)\}(t)$ is the structural inverse kernel of the transform.
@@ -259,37 +259,37 @@ def render_unified_framework_section():
         G(s) = \int_0^\infty e^{-st}g(t) \, dt
         """)
         st.latex(r"""
-        D_s^n G(s) = D_s^n \left( \int_0^\infty e^{-st}g(t) \, dt \right) = \int_0^\infty (-1)^n t^n e^{-st}g(t) \, dt \tag{194}
+        D_s^n G(s) = D_s^n \left( \int_0^\infty e^{-st}g(t) \, dt \right) = \int_0^\infty (-1)^n t^n e^{-st}g(t) \, dt 
         """)
         st.markdown(r"""
         To ensure sign absorption and clean algebraic mapping, we isolate the planted differential rank:
         """)
         st.latex(r"""
-        (-D_s)^n G(s) = \int_0^\infty t^n e^{-st}g(t) \, dt \tag{195}
+        (-D_s)^n G(s) = \int_0^\infty t^n e^{-st}g(t) \, dt 
         """)
         st.markdown(r"""
         Multiplying both sides of the identity by the $n$-th Maclaurin coefficient $a_n$ and taking the infinite sum over $n \in \mathbb{N}_0$, we construct the raw operator series:
         """)
         st.latex(r"""
-        \sum_{n=0}^\infty a_n (-D_s)^n G(s) = \sum_{n=0}^\infty a_n \int_0^\infty t^n e^{-st}g(t) \, dt \tag{196}
+        \sum_{n=0}^\infty a_n (-D_s)^n G(s) = \sum_{n=0}^\infty a_n \int_0^\infty t^n e^{-st}g(t) \, dt 
         """)
         st.markdown(r"""
         Assuming uniform convergence of the joint series-integral operator, we justify the interchange of summation and integration (via the Fubini-Tonelli theorem):
         """)
         st.latex(r"""
-        \mathcal{T}\{f\}(s) = \int_0^\infty e^{-st}g(t) \left( \sum_{n=0}^\infty a_n t^n \right) \, dt \tag{197}
+        \mathcal{T}\{f\}(s) = \int_0^\infty e^{-st}g(t) \left( \sum_{n=0}^\infty a_n t^n \right) \, dt 
         """)
         st.markdown(r"""
         Recognizing that the internal nested series $\sum_{n=0}^\infty a_n t^n$ is precisely the Maclaurin definition of the target input function $f(t)$, the expression collapses into:
         """)
         st.latex(r"""
-        \mathcal{T}\{f\}(s) = \int_0^\infty e^{-st}f(t)g(t) \, dt \tag{198}
+        \mathcal{T}\{f\}(s) = \int_0^\infty e^{-st}f(t)g(t) \, dt 
         """)
         st.markdown(r"""
         This completes the rigorous formal proof of the Inverse-Kernel Duality.
         """)
         st.latex(r"""
-        \mathcal{T}\{f\}(s) := \sum_{n=0}^\infty a_n (-D_s)^n (G(s)) = \int_0^\infty e^{-st} f(t) g(t) \, dt \tag{199}
+        \mathcal{T}\{f\}(s) := \sum_{n=0}^\infty a_n (-D_s)^n (G(s)) = \int_0^\infty e^{-st} f(t) g(t) \, dt 
         """)
         st.markdown(r"where $g(t) = \mathcal{L}^{-1}\{G(s)\}(t)$")
 
