@@ -855,9 +855,6 @@ def render_unified_framework_section():
     T\{f\}(s) := \sum_{n=0}^{\infty} a_n(-D_s)^n \frac{G(s)}{P(s)} = \int_0^{\infty} e^{-st} f(t) \int_0^t h(t-\tau) g(\tau) d\tau,
     """)
  
-# ============================================================
-# SECTION 9.9: The Grand Unified Framework Mapping Table
-# ============================================================
 st.header("9.9 The Grand Unified Framework Mapping Table")
 
 st.markdown(r"""
